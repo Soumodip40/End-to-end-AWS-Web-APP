@@ -49,5 +49,26 @@ I have created one end-to-end web application from scratch, in this project i ha
 Your web app will load in a new browser tab and render "Power Of Math" Congratulations!
 
 
+## Create and config lambda function
 
+1. In a new browser tab, log in to the AWS Lambda console.
+2. Make sure you create your function in the same Region in which you created the web app in the previous module. You can see this at the very top of the page, next to your account name.
+Choose the orange Create function button.
+3. Under Function name, enter 
+ #import the JSON utility package
+import json
+#import the Python math library
+import math
+
+#define the handler function that the Lambda service will use an entry point
+def lambda_handler(event, context):
+
+#extract the two numbers from the Lambda service's event object
+    mathResult = math.pow(int(event['base']), int(event['exponent']))
+
+    # return a properly formatted JSON object
+    return {
+    'statusCode': 200,
+    'body': json.dumps('Your result is ' + str(mathResult))
+    }
 
