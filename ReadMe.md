@@ -294,3 +294,137 @@ def lambda_handler(event, context):
     'statusCode': 200,
     'body': json.dumps('Your result is ' + str(mathResult))
     }
+
+
+## Now test the modify
+
+1.Choose the orange Test button.
+
+2. You should see an Execution result: succeeded message with a green background.
+
+3. In a new browser tab, open the DynamoDB console.
+
+4. In the left-hand navigation pane, select Tables > Explore items.
+
+5. Select HelloWorldDatabase, which we created earlier in this module.
+
+6. Select the Items tab on the right.
+
+7. Items matching your test event appear under Items returned. If you have been using our examples, the item ID will be Hello from Lambda, Ada Lovelace or Ada Lovelace.
+
+8. Every time your Lambda function executes, your DynamoDB table will be updated. If the same name is used, only the time stamp will change
+
+
+
+
+## Update the webapp in amplify console
+
+1. Open the index.html file you created in module one.
+2. Replace the existing code with the following:
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>To the Power of Math!</title>
+    <!-- Styling for the client UI -->
+    <style>
+    h1 {
+        color: #FFFFFF;
+        font-family: system-ui;
+		margin-left: 20px;
+        }
+	body {
+        background-color: #222629;
+        }
+    label {
+        color: #86C232;
+        font-family: system-ui;
+        font-size: 20px;
+        margin-left: 20px;
+		margin-top: 20px;
+        }
+     button {
+        background-color: #86C232;
+		border-color: #86C232;
+		color: #FFFFFF;
+        font-family: system-ui;
+        font-size: 20px;
+		font-weight: bold;
+        margin-left: 30px;
+		margin-top: 20px;
+		width: 140px;
+        }
+	 input {
+        color: #222629;
+        font-family: system-ui;
+        font-size: 20px;
+        margin-left: 10px;
+		margin-top: 20px;
+		width: 100px;
+        }
+    </style>
+    <script>
+        // callAPI function that takes the base and exponent numbers as parameters
+        var callAPI = (base,exponent)=>{
+            // instantiate a headers object
+            var myHeaders = new Headers();
+            // add content type header to object
+            myHeaders.append("Content-Type", "application/json");
+            // using built in JSON utility package turn object to string and store in a variable
+            var raw = JSON.stringify({"base":base,"exponent":exponent});
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            // make API call with parameters and use promises to get response
+            fetch("YOUR API GATEWAY ENDPOINT", requestOptions)
+            .then(response => response.text())
+            .then(result => alert(JSON.parse(result).body))
+            .catch(error => console.log('error', error));
+        }
+    </script>
+</head>
+<body>
+    <h1>TO THE POWER OF MATH!</h1>
+	<form>
+        <label>Base number:</label>
+        <input type="text" id="base">
+        <label>...to the power of:</label>
+        <input type="text" id="exponent">
+        <!-- set button onClick method to call function we defined passing input values as parameters -->
+        <button type="button" onclick="callAPI(document.getElementById('base').value,document.getElementById('exponent').value)">CALCULATE</button>
+    </form>
+</body>
+</html>
+
+
+
+3. Make sure you add your API Invoke URL on Line 41 (from module three). Note: If you do not have your API's URL, you can get it from the API Gateway console by selecting your API and choosing stages.
+4. Save the file.
+
+5. ZIP (compress) only the HTML file.
+
+6. Open the Amplify console.
+
+7. Choose the web app created in module one.
+
+8. Choose the white Choose files button.
+
+9. Select the ZIP file you created in Step 5.
+
+10. When the file is uploaded, a deployment process will automatically begin. Once you see a green bar, your deployment will be complete.
+
+## Test the updated webapp
+
+1. Choose the URL under Domain.
+2. Your updated web app should load in your browser.
+3. Fill in your name (or whatever you prefer) and choose the Call API button.
+4. You should see a message that starts with Hello from Lambda followed by the text you filled in.
+ 
+# Congratulations! You now have a working web app deployed by Amplify console that can call a Lambda function via API Gateway.
+
+# LAST STEP - NEED TO CLEAN ALL RESOURCES
