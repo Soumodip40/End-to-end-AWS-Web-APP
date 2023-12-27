@@ -56,7 +56,7 @@ Your web app will load in a new browser tab and render "Power Of Math" Congratul
 Choose the orange Create function button.
 3. Under Function name, enter 
 
- #import the JSON utility package
+> #import the JSON utility package
 import json
 #import the Python math library
 import math
