@@ -169,3 +169,44 @@ Choose the blue Create API button.
 7. Great! We have built and tested an API that calls our Lambda function.
 
 
+## Create a DynanoDB
+
+1.Log in to the Amazon DynamoDB console.
+2.Make sure you create your table in the same Region in which you created the web app in the previous module. You can see this at the very top of the page, next to your account name.
+3.Choose the orange Create table button.
+4.Under Table name, enter HelloWorldDatabase.
+5.In the Partition key field, enter ID. The partition key is part of the table's primary key.
+6.Leave the rest of the default values unchanged and choose the orange Create table button.
+7.In the list of tables, select the table name, HelloWorldDatabase.
+8.In the General information section, show Additional info by selecting the down arrow.
+9.Copy the Amazon Resource Name (ARN). You will need it later in this module.
+
+## Create and add IAM policy
+
+1.Now that we have a table, let's edit our Lambda function to be able to write data to it. In a new browser window, open the AWS Lambda console.
+2.Select the function we created in module two (if you have been using our examples, it will be called HelloWorldFunction). If you don't see it, check the Region 3.dropdown in the upper right next to your name to ensure you're in the same Region you created the function in.
+4.We'll be adding permissions to our function so it can use the DynamoDB service, and we will be using AWS Identity and Access Management (IAM) to do so.
+5.Select the Configuration tab and select Permissions from the right side menu.
+6.In the Execution role box, under Role name, choose the link. A new browser tab will open.
+7.In the Permissions policies box, open the Add permissions dropdown and select Create inline policy.
+8.Select the JSON tab.
+9.Paste the following policy in the text area, taking care to replace your table's ARN in the Resource field in line 15:
+
+{
+"Version": "2012-10-17",
+"Statement": [
+    {
+        "Sid": "VisualEditor0",
+        "Effect": "Allow",
+        "Action": [
+            "dynamodb:PutItem",
+            "dynamodb:DeleteItem",
+            "dynamodb:GetItem",
+            "dynamodb:Scan",
+            "dynamodb:Query",
+            "dynamodb:UpdateItem"
+        ],
+        "Resource": "YOUR-TABLE-ARN"
+    }
+    ]
+}
