@@ -14,7 +14,9 @@ I have created one end-to-end web application from scratch, in this project i ha
     To the Power of Math!
 </body>
 </html>
+
 ## Create a webapp with amplify console
+
 2. Save the file as index.html.
 
 3. ZIP (compress) only the HTML file.
